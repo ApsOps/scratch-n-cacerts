@@ -1,0 +1,11 @@
+sudo: required
+
+services:
+- docker
+
+before_install:
+- docker run -v $(pwd):/cacerts -w /cacerts alpine ash -c "apk --no-cache add ca-certificates && update-ca-certificates && cp /etc/ssl/certs/ca-certificates.crt ."
+
+script:
+- md5sum -c ca-certificates.crt.md5
+
